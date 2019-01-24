@@ -17,10 +17,21 @@ class PlusSymbolBtn: ButtonView {
         super.addReaction { [unowned self] in
             self.reactionBlk()
         }
+        let gesture = NSClickGestureRecognizer.init(target: self, action: #selector(reactionFunc))
+    }
+    @objc private func reactionFunc() {
+        reactionBlk()
     }
     override func draw(_ dirtyRect: NSRect) {
+        switch option {
+        case .withFrame(let backgroundColor, let sybolColor):
+            drawWithFrame(backgroundColor: backgroundColor, symbolColor: sybolColor)
+        case .withoutFrame(let sybolColor):
+            drawWithoutFrame(symbolColor: sybolColor)
+        case .defuat:
+            drawWithDefuat()
+        }
         super.draw(dirtyRect)
-        
     }
     override func layout() {
         super.layout()

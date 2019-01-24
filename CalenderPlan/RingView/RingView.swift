@@ -52,6 +52,7 @@ class RingView: NSView {
     }
     override func draw(_ dirtyRect: NSRect) {
         let path = NSBezierPath.init()
+        
         path.appendArc(withCenter: self.bounds.size.getCenter(),
                        radius: radius,
                        startAngle: startAngle,

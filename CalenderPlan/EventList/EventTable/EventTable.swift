@@ -11,9 +11,10 @@ import Cocoa
 
 class EventTable: NSView {
     private var tableView: VerticleTableView = VerticleTableView()
-    private var model: [Event] = []
+    private var model: EventList = []
+    var addNewCellBlk: () -> () = { }
     var rowDidClickedReactionBlk: (Int) -> () = { _ in }
-    init(frame frameRect: NSRect, model: [Event]) {
+    init(frame frameRect: NSRect, model: EventList) {
         self.model = model
         super.init(frame: frameRect)
     }
@@ -35,8 +36,14 @@ class EventTable: NSView {
         super.layout()
         tableView.frame = self.bounds
     }
+    func refreshAll() {
+        tableView.reload()
+    }
     func refreshAt(row: Int) {
-        tableView.refreshAt(row: row)
+        _ = tableView.refreshAt(row: row)
+    }
+    func insertCellAt(row: Int, cell: Event) {
+        tableView.insertCellAt(index: row, cell: EventCell.init(model: cell))
     }
 }
 
@@ -46,12 +53,19 @@ extension EventTable: VerticleTableViewDataSource {
     }
     
     func numberOfRows() -> Int {
-        return model.count
+        return model.count+1
     }
     
     func cellFor(row: Int) -> VerticleTableViewCell {
-        
-        return EventCell.init(model: model[row])
+        if(row < model.count) {
+            return EventCell.init(model: model[row])
+        } else {
+            let cell = AddCell()
+            cell.reactionBlk = { [unowned self] in
+                self.addNewCellBlk()
+            }
+            return cell
+        }
     }
     
     func heightFor(row: Int) -> CGFloat {

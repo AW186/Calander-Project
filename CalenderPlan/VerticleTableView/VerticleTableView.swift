@@ -36,24 +36,31 @@ class VerticleTableView: ScrollView {
         offset.y -= frame.height-lastFrameHeight
     }
     func reload() {
+        let record = offset
         setUp()
+        offset = record
     }
     func removeCellAt(index: Int) {
         guard index >= 0 && index < cells.count else {
             return
         }
     }
-    func appendCell() {
-        
+    func appendCell(_ cell: VerticleTableViewCell) {
+        self.cells.append(cell)
+        self.addSubview(cell)
+        layoutCells(from: cells.count-1, to: cells.count-1)
     }
-    func insetCellAt(index: Int) {
+    func insertCellAt(index: Int, cell: VerticleTableViewCell) {
         guard index >= 0 else {
             return
         }
         guard index < cells.count else {
-            appendCell()
+            appendCell(cell)
             return
         }
+        self.cells.insert(cell, at: index)
+        self.addSubview(cell)
+        layoutCells(from: index, to: cells.count-1)
     }
 }
 

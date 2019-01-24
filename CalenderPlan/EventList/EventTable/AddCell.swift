@@ -9,12 +9,12 @@
 import Foundation
 import Cocoa
 
-class AddCell: NSView {
+class AddCell: VerticleTableViewCell {
     private var plusBtn: PlusSymbolBtn = PlusSymbolBtn()
     var reactionBlk: () -> Void = {}
     override func viewDidMoveToSuperview() {
         super.viewDidMoveToSuperview()
-        self.addSubview(plusBtn)
+        setUpPlusBtn()
     }
     override func layout() {
         plusBtn.frame.size = CGSize.init(width: 30, height: 30)

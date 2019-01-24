@@ -32,6 +32,7 @@
 		92BB952521EE10BD00B92324 /* EditIconBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BB952421EE10BC00B92324 /* EditIconBtn.swift */; };
 		92BB952821F5987B00B92324 /* AddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BB952721F5987B00B92324 /* AddCell.swift */; };
 		92BB952A21F598C000B92324 /* PlusSymbolBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BB952921F598C000B92324 /* PlusSymbolBtn.swift */; };
+		92BB952C21F98E4F00B92324 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BB952B21F98E4F00B92324 /* EventModel.swift */; };
 		92EAAD7821745CA40085D1E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EAAD7721745CA40085D1E9 /* AppDelegate.swift */; };
 		92EAAD7A21745CA40085D1E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EAAD7921745CA40085D1E9 /* ViewController.swift */; };
 		92EAAD7C21745CA60085D1E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92EAAD7B21745CA60085D1E9 /* Assets.xcassets */; };
@@ -109,6 +110,7 @@
 		92BB952421EE10BC00B92324 /* EditIconBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIconBtn.swift; sourceTree = "<group>"; };
 		92BB952721F5987B00B92324 /* AddCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCell.swift; sourceTree = "<group>"; };
 		92BB952921F598C000B92324 /* PlusSymbolBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusSymbolBtn.swift; sourceTree = "<group>"; };
+		92BB952B21F98E4F00B92324 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		92EAAD7421745CA40085D1E9 /* CalenderPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalenderPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EAAD7721745CA40085D1E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92EAAD7921745CA40085D1E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -244,9 +246,11 @@
 		92BB952621F18D3E00B92324 /* EventTable */ = {
 			isa = PBXGroup;
 			children = (
+				92EAADC721787A9C0085D1E9 /* BookView */,
 				92813CF4217D9AD8002988BD /* EventTable.swift */,
 				92081BB92189407F0015940C /* EventTableDelegate.swift */,
 				92813CF6217D9BBE002988BD /* Event.swift */,
+				92BB952B21F98E4F00B92324 /* EventModel.swift */,
 				92EAADE0217AE7760085D1E9 /* EventCell.swift */,
 				92BB952721F5987B00B92324 /* AddCell.swift */,
 				92BB952921F598C000B92324 /* PlusSymbolBtn.swift */,
@@ -284,7 +288,6 @@
 				92813D0121828753002988BD /* RingView */,
 				92813CF8217EEC2B002988BD /* VerticleTableView */,
 				92EAADDF217AE4D80085D1E9 /* EventList */,
-				92EAADC721787A9C0085D1E9 /* BookView */,
 				92EAADC6217800FC0085D1E9 /* LeftDateCheckingView */,
 				92EAADA321745CCC0085D1E9 /* Dependencies */,
 				92EAADA821745CCC0085D1E9 /* GeoElement */,
@@ -594,6 +597,7 @@
 				92BB952521EE10BD00B92324 /* EditIconBtn.swift in Sources */,
 				92EAADDE217AE4B40085D1E9 /* ButtonView.swift in Sources */,
 				92EAADBE2176ADED0085D1E9 /* Holiday.swift in Sources */,
+				92BB952C21F98E4F00B92324 /* EventModel.swift in Sources */,
 				92EAADD6217A071D0085D1E9 /* LabelButton.swift in Sources */,
 				92EAADB021745CCC0085D1E9 /* CGPointExtension.swift in Sources */,
 			);

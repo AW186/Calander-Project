@@ -11,12 +11,12 @@ import Cocoa
 
 class EventsListView: NSView {
     private var bookView: BookView = BookView.init()
-    private let model: ([Event], [Event])
+    private var model: (EventList, EventList)
     private let gap: CGFloat = 50
     private var eventEditingView: EventEditModelView = EventEditModelView.init(frame: NSRect.zero, event: Event.init(dueDate: 0, fromDate: 0, name: ""))
     var transportModel: (([Event], [Event])) -> () = { _ in }
     private var modalEnable = true
-    init(frame frameRect: NSRect, model: ([Event], [Event])) {
+    init(frame frameRect: NSRect, model: (EventList, EventList)) {
         self.model = model
         super.init(frame: frameRect)
     }
@@ -62,12 +62,47 @@ extension EventsListView: BookViewDataSource {
         let retval = page == 0 ? EventTable.init(frame: self.bounds, model: model.0) : EventTable.init(frame: self.bounds, model: model.1)
         retval.rowDidClickedReactionBlk = { row in
             print("page: \(page), row: \(row)")
+            guard row < (page == 0 ? self.model.0 : self.model.1).count else {
+                return
+            }
             self.enableEventEdit(page: page, row: row)
+        }
+        retval.addNewCellBlk = { [unowned self] in
+            self.enableEventEditNew(page: page)
         }
         return retval
     }
-    
-    func enableEventEdit(page: Int, row: Int) {
+    private func enableEventEditNew(page: Int) {
+        guard modalEnable else {
+            return
+        }
+        let event = Event.init(dueDate: NSDate().timeIntervalSince1970,
+                               fromDate: NSDate().timeIntervalSince1970,
+                               name: "新建")
+        eventEditingView = EventEditModelView.init(frame: self.bounds, event: event)
+        eventEditingView.frame.size.width -= gap
+        eventEditingView.frame.origin = self.bounds.rightBottomCorner
+        eventEditingView.callBackBlk = { [unowned self] in
+            if (page == 0) {
+                self.model.0.append(event)
+            } else {
+                self.model.1.append(event)
+            }
+            self.bookView.refreshPage(page: page)
+            self.disableEventEdit()
+        }
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.duration = 0.3
+            context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            let start = self.bounds.width
+            let end = self.gap
+            self.eventEditingView.animator().setFrameOrigin(NSPoint(x: start + (end - start), y: 0))
+        }, completionHandler: nil)
+        
+        self.addSubview(eventEditingView)
+        modalEnable = false
+    }
+    private func enableEventEdit(page: Int, row: Int) {
         guard modalEnable else {
             return
         }
@@ -100,6 +135,7 @@ extension EventsListView: BookViewDataSource {
             self.eventEditingView.removeFromSuperview()
             self.modalEnable = true
         })
+        AppDelegate.saveModel()
     }
     
     func pageContentSyle() -> PageContentStyle {

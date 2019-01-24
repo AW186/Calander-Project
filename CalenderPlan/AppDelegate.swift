@@ -11,18 +11,18 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    static var model: [[Event]] = []
+    static var model: [EventList] = []
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        saveModel()
+        AppDelegate.saveModel()
     }
-    private func saveModel() {
+    public static func saveModel() {
         let filePath: String = NSHomeDirectory() + "/Documents/webs.plist"
         let newArr = AppDelegate.model.map { (arr) -> [Dictionary<String, String>] in
-            return arr.map({ (arg) -> Dictionary<String, String> in
+            return arr.data.map({ (arg) -> Dictionary<String, String> in
                 return arg.toDict()
             })
         }

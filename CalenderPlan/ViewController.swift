@@ -51,7 +51,7 @@ class ViewController: NSViewController {
         let eventArr2 = arr[1].map({ (arg) -> Event in
             return Event.init(dict: arg)
         })
-        AppDelegate.model = [eventArr1, eventArr2]
+        AppDelegate.model = [EventList(array: eventArr1), EventList(array: eventArr2)]
     }
     override func viewDidAppear() {
         guard let window = self.view.window else {

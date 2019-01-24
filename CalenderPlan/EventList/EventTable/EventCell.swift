@@ -65,7 +65,11 @@ extension EventCell {
         }
         ring.radius = self.bounds.height*0.8/2
         ring.width = self.bounds.height/20
-        ring.angle = CGFloat((NSDate().timeIntervalSince1970-model.fromDate)/(model.dueDate-model.fromDate))*360
+        if(model.dueDate <= model.fromDate) {
+            ring.angle = 360
+        } else {
+            ring.angle = CGFloat((NSDate().timeIntervalSince1970-model.fromDate)/(model.dueDate-model.fromDate))*360
+        }
         ring.frame.size = CGSize.init(length: self.bounds.height)
         ring.frame.rightTopCorner = self.bounds.rightTopCorner
         ring.frame.rightTopCorner.x -= self.bounds.width/10

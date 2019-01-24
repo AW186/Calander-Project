@@ -11,13 +11,14 @@ import Cocoa
 
 class EventEditingView: NSView {
     var eventCompletedBlk: () -> () = {}
-    var eventChangedBlk: (Event) -> () = { _ in }
+    var deleteAction: () -> () = { }
     var editBtnFontSize: CGFloat = 20
     let ringSize: CGFloat = 300
     var editing: Bool {
         return self.isEditing
     }
     private var dueDatePicker: NSDatePicker = NSDatePicker.init()
+    private var deleteBtn: LabelButton = LabelButton()
     private var fromDatePicker: NSDatePicker = NSDatePicker.init()
     private var editBtn: NSTextField = LabelButton()
     private let event: Event
@@ -64,6 +65,7 @@ extension EventEditingView {
         setUpCompleteRateTextField()
         setUpEditBtn()
         setUpEditIconBtn()
+        setUpDeleteBtn()
     }
     override func layout() {
         super.layout()
@@ -77,6 +79,13 @@ extension EventEditingView {
         layoutEditIconBtn()
         layoutDueDatePicker()
         layoutFromDatePicker()
+        layoutDeleteBtn()
+    }
+    private func setUpDeleteBtn() {
+        
+    }
+    private func layoutDeleteBtn() {
+        
     }
     private func setUpEditIconBtn() {
         editIconBtn.addReaction { [unowned self] in
@@ -265,7 +274,6 @@ extension EventEditingView {
         layoutDiscriptionTextField()
         layoutNameTextField()
         
-        eventChangedBlk(self.event)
     }
     private func setUpDueDatePicker() {
         dueDatePicker.datePickerElements = .yearMonthDayDatePickerElementFlag

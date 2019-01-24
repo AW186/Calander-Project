@@ -71,6 +71,9 @@ extension BookView {
         super.viewDidMoveToSuperview()
         refreshData()
     }
+    func refreshPage(page: Int) {
+        pages[page].refreshAll()
+    }
     func refreshData() {
         guard dataSource != nil else {
             return
@@ -80,6 +83,9 @@ extension BookView {
     }
     func refreshAt(page: Int, row: Int) {
         self.pages[page].refreshAt(row: row)
+    }
+    func insertCell(page: Int, row: Int, cell: Event) {
+        pages[page].insertCellAt(row: row, cell: cell)
     }
     private func setUpPageControl() {
         pageControl.removeFromSuperview()
