@@ -91,6 +91,9 @@ extension EventsListView: BookViewDataSource {
             self.bookView.refreshPage(page: page)
             self.disableEventEdit()
         }
+        eventEditingView.deleteAction = {
+            self.disableEventEdit()
+        }
         NSAnimationContext.runAnimationGroup({ (context) in
             context.duration = 0.3
             context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
@@ -112,6 +115,11 @@ extension EventsListView: BookViewDataSource {
         eventEditingView.frame.origin = self.bounds.rightBottomCorner
         eventEditingView.callBackBlk = { [unowned self] in
             self.bookView.refreshAt(page: page, row: row)
+            self.disableEventEdit()
+        }
+        eventEditingView.deleteAction = { [unowned self] in
+            (page == 0 ? self.model.0 : self.model.1).data.remove(at: row)
+            self.bookView.refreshPage(page: page)
             self.disableEventEdit()
         }
         NSAnimationContext.runAnimationGroup({ (context) in

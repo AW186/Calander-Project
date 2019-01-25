@@ -56,8 +56,14 @@ class RingSlider: NSView {
         }
     }
     var percentage: CGFloat {
-        return AWAngle(currentAngle).minus(angle: AWAngle(fromAngle), clockwise: isClockWise).cgFloat /
-            AWAngle(toAngle).minus(angle: AWAngle(fromAngle), clockwise: isClockWise).cgFloat
+        get {
+            return AWAngle(currentAngle).minus(angle: AWAngle(fromAngle), clockwise: isClockWise).cgFloat /
+                AWAngle(toAngle).minus(angle: AWAngle(fromAngle), clockwise: isClockWise).cgFloat
+        }
+        set {
+            currentAngle = AWAngle(AWAngle(toAngle).minus(angle: AWAngle(fromAngle), clockwise: isClockWise).cgFloat * newValue)
+                .plus(angle: AWAngle(fromAngle), clockwise: isClockWise).cgFloat
+        }
     }
     private var angleDifference: CGFloat {
         return currentAngle-fromAngle

@@ -52,11 +52,11 @@ class RingView: NSView {
     }
     override func draw(_ dirtyRect: NSRect) {
         let path = NSBezierPath.init()
-        
+        let endAngle: CGFloat = angle.remainder(dividingBy: 360) == 0 ? startAngle+(isClockWise ? -1 : 1) : startAngle+angle
         path.appendArc(withCenter: self.bounds.size.getCenter(),
                        radius: radius,
                        startAngle: startAngle,
-                       endAngle: startAngle+angle,
+                       endAngle: endAngle,
                        clockwise: isClockWise)
         path.lineWidth = width
         color.setStroke()

@@ -13,12 +13,14 @@ class EventEditModelView: NSView {
     private var eventEditingView: EventEditingView
     private var event: Event
     private var backBar: BackBar = BackBar()
+    var deleteAction: () -> () = {}
     var callBackBlk: () -> () = {}
     init(frame frameRect: NSRect, event: Event) {
         self.event = event
         self.eventEditingView = EventEditingView.init(frame: NSRect.zero, event: event)
         super.init(frame: frameRect)
         backBar.reactionBlk = { [unowned self] in self.callBackBlk() }
+        eventEditingView.deleteAction = { [unowned self] in self.deleteAction() }
     }
     required init?(coder decoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

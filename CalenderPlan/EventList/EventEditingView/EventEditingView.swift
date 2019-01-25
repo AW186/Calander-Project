@@ -82,10 +82,22 @@ extension EventEditingView {
         layoutDeleteBtn()
     }
     private func setUpDeleteBtn() {
-        
+        deleteBtn.addReaction { [unowned self] in
+            if self.dialogOKCancel(question: "确认删除吗？", text: "删除后将无法恢复") {
+                self.deleteAction()
+            }
+        }
+        deleteBtn.stringValue = "删除"
+        deleteBtn.isEditable = false
+        deleteBtn.isBordered = false
+        deleteBtn.font = NSFont.systemFont(ofSize: 15)
+        deleteBtn.textColor = NSColor.red
+        self.addSubview(deleteBtn)
     }
     private func layoutDeleteBtn() {
-        
+        deleteBtn.sizeToFit()
+        deleteBtn.frame.origin = editBtn.frame.origin
+        deleteBtn.frame.rightTopCorner.x = ringSlider.frame.rightBottomCorner.x
     }
     private func setUpEditIconBtn() {
         editIconBtn.addReaction { [unowned self] in
@@ -111,6 +123,7 @@ extension EventEditingView {
     }
     private func setUpRingSlider() {
         layoutRingSlider()
+        ringSlider.percentage = CGFloat(event.compeletingRate)
         ringSlider.reactionBlk = { [unowned self] (rate) in
             self.completeRateTextField.stringValue = "\(Int(rate*100))%"
             self.layoutCompleteRateTextField()
@@ -254,6 +267,7 @@ extension EventEditingView {
         event.fromDate = fromDatePicker.dateValue.timeIntervalSince1970
         event.discription = discriptionContentTF.stringValue
         event.name = nameTextField.stringValue
+        event.compeletingRate = Double(ringSlider.percentage)
         
         dueDatePicker.removeFromSuperview()
         fromDatePicker.removeFromSuperview()
@@ -298,7 +312,7 @@ extension EventEditingView {
         myPopup.messageText = question
         myPopup.informativeText = text
         myPopup.alertStyle = NSAlert.Style.warning
-        myPopup.addButton(withTitle: "好的")
+        myPopup.addButton(withTitle: "删除")
         myPopup.addButton(withTitle: "取消")
         return myPopup.runModal() == NSApplication.ModalResponse.alertFirstButtonReturn
     }

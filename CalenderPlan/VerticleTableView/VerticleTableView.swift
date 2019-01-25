@@ -38,7 +38,7 @@ class VerticleTableView: ScrollView {
     func reload() {
         let record = offset
         setUp()
-        offset = record
+        offset = record //max and min problem
     }
     func removeCellAt(index: Int) {
         guard index >= 0 && index < cells.count else {
