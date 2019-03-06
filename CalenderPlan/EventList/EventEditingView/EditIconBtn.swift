@@ -15,12 +15,12 @@ class EditIconBtn: ButtonView {
             setNeedsDisplay(self.bounds)
         }
     }
-    var tintColor: NSColor = NSColor.cyan {
+    var tintColor: NSColor = NSColor(cgColor: ColorBoard.yuhong)! {
         didSet {
             setNeedsDisplay(self.bounds)
         }
     }
-    var defuatColor: NSColor = NSColor.lightGray {
+    var defuatColor: NSColor = NSColor(cgColor: ColorBoard.yuanshanzi)! {
         didSet {
             setNeedsDisplay(self.bounds)
         }

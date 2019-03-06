@@ -13,7 +13,7 @@ class BackBar: NSView {
     var reactionBlk: () -> () = {}
     override func draw(_ dirtyRect: NSRect) {
         self.wantsLayer = true
-        self.layer?.backgroundColor = NSColor.lightGray.cgColor
+        self.layer?.backgroundColor = ColorBoard.yuanshanzi
         let path = NSBezierPath()
         var beginPoint = self.boundCenter
         let unit = self.bounds.width/4
@@ -22,7 +22,7 @@ class BackBar: NSView {
         path.move(to: beginPoint)
         path.line(to: beginPoint.plus(point: CGPoint.init(x: unit, y: -unit)))
         path.line(to: beginPoint.plus(point: CGPoint.init(x: 0, y: -2*unit)))
-        NSColor.white.setStroke()
+        NSColor(cgColor: ColorBoard.yuebai)?.setStroke()
         path.stroke()
         
         super.draw(dirtyRect)

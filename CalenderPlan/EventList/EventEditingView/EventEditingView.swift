@@ -56,7 +56,7 @@ extension EventEditingView {
     override func viewDidMoveToSuperview() {
         super.viewDidMoveToSuperview()
         self.wantsLayer = true
-        self.layer?.backgroundColor = NSColor.white.cgColor
+        self.layer?.backgroundColor = ColorBoard.yuebai
         setUpNameTextField()
         setUpRingSlider()
         setUpDueDateTextField()
@@ -91,7 +91,7 @@ extension EventEditingView {
         deleteBtn.isEditable = false
         deleteBtn.isBordered = false
         deleteBtn.font = NSFont.systemFont(ofSize: 15)
-        deleteBtn.textColor = NSColor.red
+        deleteBtn.textColor = NSColor(cgColor: ColorBoard.yuhong)
         self.addSubview(deleteBtn)
     }
     private func layoutDeleteBtn() {
@@ -145,7 +145,7 @@ extension EventEditingView {
         nameTextField.alignment = .center
         nameTextField.isEditable = false
         nameTextField.isBordered = false
-        nameTextField.textColor = NSColor(cgColor: ColorBoard.textColor1)
+        nameTextField.textColor = NSColor.black
         self.addSubview(nameTextField)
     }
     private func layoutNameTextField() {

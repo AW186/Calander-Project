@@ -52,7 +52,7 @@ extension DateView {
         let season = date.toChineseSeason()
         var rect = CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: radius/3, height: radius/1.37))
         rect.origin = self.leftMidPoint
-        seasonLabel = VerticleRectLabel.init(frame: rect, text: "小\n寒", fontSize: radius/4, option: .borderAndColor(3, ColorBoard.borderColor2, NSColor.white.cgColor))
+        seasonLabel = VerticleRectLabel.init(frame: rect, text: "小\n寒", fontSize: radius/4, option: .borderAndColor(3, ColorBoard.borderColor2, ColorBoard.yuebai))
         self.addSubview(seasonLabel)
     }
     private func setUpYearMonthLabel() {
@@ -108,7 +108,7 @@ extension DateView {
     }
     private func setUpCircle() {
         circle.removeFromSuperview()
-        circle = Circle.init(frame: self.bounds.growBig(byScale: roundSquareRatio), option: .border(5, ColorBoard.borderColor1))
+        circle = Circle.init(frame: self.bounds.growBig(byScale: roundSquareRatio), option: .border(5, ColorBoard.gutongliu))
         self.addSubview(circle)
     }
 }

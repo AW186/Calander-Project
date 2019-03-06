@@ -99,9 +99,9 @@ extension PlusSymbolBtn {
         horizantalPath.lineWidth = rect.height/10
         verticlePath.lineWidth = rect.height/10
         
-        NSColor.lightGray.setFill()
+        NSColor(cgColor: ColorBoard.waguanhui)?.setFill()
         circlePath.fill()
-        NSColor.white.setStroke()
+        NSColor(cgColor: ColorBoard.yuebai)?.setStroke()
         horizantalPath.stroke()
         verticlePath.stroke()
     }

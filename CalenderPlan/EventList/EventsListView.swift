@@ -155,6 +155,6 @@ extension EventsListView: BookViewDataSource {
     }
     
     func pageTitle(for page: Int) -> String {
-        return ["长期任务栏", "今日任务"][page]
+        return ["长期任务栏", "短期任务栏"][page]
     }
 }

@@ -36,7 +36,7 @@ class ViewController: NSViewController {
 //        generateFile()
         getModel()
         self.view.wantsLayer = true
-        self.view.layer?.backgroundColor = NSColor.white.cgColor
+        self.view.layer?.backgroundColor = ColorBoard.yuebai
         self.view.addSubview(bookView)
         self.view.addSubview(leftDateCheckingView)
 //        self.view.addSubview(testRingSlider)

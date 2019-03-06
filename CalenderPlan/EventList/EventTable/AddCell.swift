@@ -28,7 +28,7 @@ extension AddCell {
         plusBtn.reactionBlk = { [unowned self] in
             self.reactionBlk()
         }
-        plusBtn.option = .withFrame(NSColor.white, NSColor.init(cgColor: ColorBoard.borderColor1)!)
+        plusBtn.option = .withFrame(NSColor(cgColor: ColorBoard.yuebai)!, NSColor.init(cgColor: ColorBoard.gutongliu)!)
         self.addSubview(plusBtn)
     }
 }

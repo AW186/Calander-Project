@@ -18,7 +18,7 @@ class LeftDateCheckingView: NSView {
     private func setShadow() {
         self.wantsLayer = true
         self.shadow = NSShadow()
-        self.layer?.backgroundColor = NSColor.white.cgColor
+        self.layer?.backgroundColor = ColorBoard.yuebai
         self.layer?.shadowColor = NSColor.black.cgColor
         self.layer?.shadowOpacity = 0.2
         self.layer?.shadowOffset = CGSize(width: 0, height: 0)

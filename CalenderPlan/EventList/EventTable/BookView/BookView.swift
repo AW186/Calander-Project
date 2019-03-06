@@ -192,10 +192,10 @@ extension BookView {
 
 extension BookView: BookPageControlDelegate {
     func setTint(label: NSTextField) {
-        label.textColor = NSColor(cgColor: ColorBoard.tintTextColor)
+        label.textColor = NSColor(cgColor: ColorBoard.gutongliu)
     }
     func setDefuat(label: NSTextField) {
-        label.textColor = NSColor.black
+        label.textColor = NSColor(cgColor: ColorBoard.yuanshanzi)
     }
     func accessToPage(page: Int) -> Int {
         scrollView.offset.x = CGFloat(page)*self.bounds.width

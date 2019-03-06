@@ -20,12 +20,12 @@ class RingSlider: NSView {
             tintRingView.width = ringWidth
         }
     }
-    var backgroundRingColor: NSColor = NSColor.lightGray {
+    var backgroundRingColor: NSColor = NSColor(cgColor: ColorBoard.yuanshanzi)! {
         didSet {
             backgroundRingView.color = backgroundRingColor
         }
     }
-    var tintRingColor: NSColor = NSColor(cgColor: ColorBoard.tintTextColor)! {
+    var tintRingColor: NSColor = NSColor(cgColor: ColorBoard.yuhong)! {
         didSet {
             tintRingView.color = tintRingColor
         }
@@ -116,9 +116,8 @@ extension RingSlider {
     private func setUpControl() {
         control = Circle()
         control.frame.size = CGSize.init(length: ringWidth)
-        control.option = .backgroundColor(NSColor.darkGray.cgColor)
+        control.option = .backgroundColor(ColorBoard.yuhong)
         control.wantsLayer = true
-        control.layer?.backgroundColor = ColorBoard.borderColor1
         control.roundTwoSides()
         control.center = self.boundCenter.plus(point: CGPoint.init(radius: self.radius, angle: currentAngle*CGFloat.pi/180))
         self.addSubview(control)

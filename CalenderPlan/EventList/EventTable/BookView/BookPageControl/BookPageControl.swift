@@ -14,7 +14,7 @@ class BookPageControl: NSView {
     private var totalPage: Int = 0
     private var pageReader: [String] = []
     private var textFields: [LabelButton] = []
-    var backGroundColor: CGColor = NSColor.white.cgColor
+    var backGroundColor: CGColor = ColorBoard.yuebai
     @objc private var reactionBlks: (()->()) -> () = { blk in
         blk()
     }
@@ -66,7 +66,7 @@ class BookPageControl: NSView {
         label.textColor = NSColor(cgColor: ColorBoard.textColor1)
         label.sizeToFit()
         label.frame.size.width = self.bounds.width/CGFloat(totalPage)
-        label.frame.origin.y = self.frame.height-label.frame.height
+        label.center.y = self.boundCenter.y
         label.frame.origin.x = length
         label.addReaction { [unowned self] in
             self.toPage(index: index)
@@ -74,7 +74,9 @@ class BookPageControl: NSView {
         return label
     }
     private func toPage(index: Int) {
-        delegate?.setDefuat(label: textFields[currentPage])
+        for index in 0..<textFields.count {
+            delegate?.setDefuat(label: textFields[index])
+        }
         delegate?.setTint(label: textFields[index])
         guard let delegate = delegate else {
             return
