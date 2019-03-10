@@ -23,6 +23,9 @@ class EventsListView: NSView {
     required init?(coder decoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    func refresh() {
+        bookView.refreshData()
+    }
 }
 extension EventsListView {
     override func viewDidMoveToSuperview() {
@@ -61,7 +64,6 @@ extension EventsListView: BookViewDataSource {
     func viewForEachPage(for page: Int) -> EventTable {
         let retval = page == 0 ? EventTable.init(frame: self.bounds, model: model.0) : EventTable.init(frame: self.bounds, model: model.1)
         retval.rowDidClickedReactionBlk = { row in
-            print("page: \(page), row: \(row)")
             guard row < (page == 0 ? self.model.0 : self.model.1).count else {
                 return
             }

@@ -61,7 +61,7 @@ extension EventCell {
             } else if timeInterval < 24*60*60 {
                 return "今天"
             } else {
-                return "还剩\(timeInterval/(24*60*60))"
+                return "还剩\(Int(timeInterval/(24*60*60)))天"
             }
         }()
         timeLeftLabel.textColor = NSColor(cgColor: ColorBoard.textColor2)

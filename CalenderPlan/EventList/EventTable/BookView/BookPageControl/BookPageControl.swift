@@ -10,6 +10,7 @@ import Foundation
 import Cocoa
 
 class BookPageControl: NSView {
+    var optionalSetupBookPage: Int?
     private var currentPage: Int = 0
     private var totalPage: Int = 0
     private var pageReader: [String] = []
@@ -45,6 +46,17 @@ class BookPageControl: NSView {
         super.layout()
         setUp()
     }
+    private func layoutSelf() {
+        textFields.forEach { (arg) in
+            arg.removeFromSuperview()
+        }
+        textFields.removeAll()
+        for index in 0...pageReader.count-1 {
+            textFields.append(setUpTextField(index: index))
+            self.addSubview(textFields[index])
+        }
+        toPage(index: currentPage)
+    }
     private func setUp() {
         textFields.forEach { (arg) in
             arg.removeFromSuperview()
@@ -54,6 +66,11 @@ class BookPageControl: NSView {
             textFields.append(setUpTextField(index: index))
             self.addSubview(textFields[index])
         }
+        guard optionalSetupBookPage != nil else {
+            toPage(index: currentPage)
+            return
+        }
+        currentPage = optionalSetupBookPage!
         toPage(index: currentPage)
     }
     private func setUpTextField(index: Int) -> LabelButton {
@@ -72,6 +89,9 @@ class BookPageControl: NSView {
             self.toPage(index: index)
         }
         return label
+    }
+    func setPage(index: Int) {
+        toPage(index: index)
     }
     private func toPage(index: Int) {
         for index in 0..<textFields.count {

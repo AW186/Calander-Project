@@ -33,4 +33,7 @@ class LeftDateCheckingView: NSView {
         super.layout()
         dateView.frame.origin.y = self.bounds.height-450
     }
+    func refresh() {
+        dateView.refresh()
+    }
 }

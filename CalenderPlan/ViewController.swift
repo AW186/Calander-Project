@@ -10,6 +10,8 @@ import Cocoa
 
 class ViewController: NSViewController {
     
+    private var timer = Timer()
+    
     private lazy var leftDateCheckingView: LeftDateCheckingView = {
         let view = LeftDateCheckingView.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 450, height: self.view.bounds.height)))
         return view
@@ -39,11 +41,22 @@ class ViewController: NSViewController {
         self.view.layer?.backgroundColor = ColorBoard.yuebai
         self.view.addSubview(bookView)
         self.view.addSubview(leftDateCheckingView)
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { [unowned self] (_) in
+            self.leftDateCheckingView.refresh()
+            self.bookView.refresh()
+        })
 //        self.view.addSubview(testRingSlider)
     }
     
     private func getModel() {
-        let filePath: String = NSHomeDirectory() + "/Documents/webs.plist"
+        let filePath: String = NSHomeDirectory() + "/Documents/data.plist"
+        print(filePath)
+        let fm = FileManager.default
+        guard fm.fileExists(atPath: filePath) else {
+            generateFile()
+            return getModel()
+        }
         let arr = NSArray.init(contentsOfFile: filePath) as! [[Dictionary<String, String>]]
         let eventArr1 = arr[0].map({ (arg) -> Event in
             return Event.init(dict: arg)
@@ -63,8 +76,8 @@ class ViewController: NSViewController {
         let dueDate: TimeInterval! = NSDate.dateFrom(year: 2018, month: 12, day: 1)?.timeIntervalSince1970
         let fromDate1: TimeInterval! = NSDate.dateFrom(year: 2018, month: 5, day: 9)?.timeIntervalSince1970
         let fromDate2: TimeInterval! = NSDate.dateFrom(year: 2018, month: 10, day: 10)?.timeIntervalSince1970
-        let array = [[Event(dueDate: dueDate, fromDate: fromDate1, name: "事件1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1")], [Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1"), Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1")]]
-        let filePath: String = NSHomeDirectory() + "/Documents/webs.plist"
+        let array = [[Event(dueDate: dueDate, fromDate: fromDate1, name: "事件1")], [Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1")]]
+        let filePath: String = NSHomeDirectory() + "/Documents/data.plist"
         let newArr = array.map { (arr) -> [Dictionary<String, String>] in
             return arr.map({ (arg) -> Dictionary<String, String> in
                 return arg.toDict()

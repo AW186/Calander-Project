@@ -10,6 +10,7 @@ import Foundation
 import Cocoa
 
 class VerticleTableView: ScrollView {
+    var optionalSetupOffset: CGFloat? = nil
     private let defualtHeight: CGFloat = 50
     private var cells: [VerticleTableViewCell] = []
     private var lastFrameHeight: CGFloat = 0
@@ -27,8 +28,11 @@ class VerticleTableView: ScrollView {
     override func viewDidMoveToSuperview() {
         super.viewDidMoveToSuperview()
         setUp()
-        print(self.bounds.height-self.contentView.frame.height)
-        offset.y = -(self.bounds.height-self.contentView.frame.height)
+        guard let optOffset = self.optionalSetupOffset else {
+            offset.y = -(self.bounds.height-self.contentView.frame.height)
+            return
+        }
+        offset.y = optOffset
     }
     override func layout() {
         super.layout()

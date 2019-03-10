@@ -14,6 +14,7 @@ class BookView: NSView {
     private var scrollContentView: NSView = NSView()
     private var scrollView: ScrollView = ScrollView()
     private var pages: [EventTable] = []
+    private var scrollingData: (Int, CGFloat) = (0, 0)
     var animationDuration: TimeInterval = 0
     var pageStyle: PageContentStyle = PageContentStyle.full
     enum PageControlStyle {
@@ -69,7 +70,8 @@ class BookView: NSView {
 extension BookView {
     override func viewDidMoveToSuperview() {
         super.viewDidMoveToSuperview()
-        refreshData()
+        setUpPageControl()
+        setUpPages()
     }
     func refreshPage(page: Int) {
         pages[page].refreshAll()
@@ -78,8 +80,16 @@ extension BookView {
         guard dataSource != nil else {
             return
         }
+        self.scrollingData.1 = pages[scrollingData.0].getOffset()
+        let record = self.scrollingData
         setUpPages()
         setUpPageControl()
+        pageControl.setPage(index: scrollingData.0)
+        accessToPage(page: scrollingData.0)
+        self.scrollingData = record
+        pages[scrollingData.0].optionalSetupOffset = scrollingData.1
+        pageControl.optionalSetupBookPage = scrollingData.0
+        pages[scrollingData.0].setOffset(scrollingData.1)
     }
     func refreshAt(page: Int, row: Int) {
         self.pages[page].refreshAt(row: row)
@@ -127,6 +137,7 @@ extension BookView {
         }
         return frameRect
     }
+    
     private func setUpPages() {
         scrollContentView.removeFromSuperview()
         scrollView.removeFromSuperview()
@@ -173,6 +184,9 @@ extension BookView {
     }
     private func getEachPage(index: Int, dataSource: BookViewDataSource) -> EventTable {
         let view = dataSource.viewForEachPage(for: index)
+        view.scrollBlk = { [unowned self] (arg) in
+            self.scrollingData.1 = arg
+        }
         switch pageStyle {
         case .full:
             view.frame = self.bounds
@@ -199,6 +213,9 @@ extension BookView: BookPageControlDelegate {
     }
     func accessToPage(page: Int) -> Int {
         scrollView.offset.x = CGFloat(page)*self.bounds.width
+        if scrollingData.0 != page {
+            self.scrollingData.0 = page
+        }
         return page
     }
 }

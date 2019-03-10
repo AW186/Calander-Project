@@ -10,6 +10,7 @@ import Foundation
 import Cocoa
 
 class ScrollView: NSView {
+    weak var scrollDelegate: ScrollViewDelegate?
     var contentView: NSView = NSView()
     var enableVerticleScrolling = false
     var enableHorizentalScrolling = false
@@ -22,6 +23,7 @@ class ScrollView: NSView {
                                    y: -newValue.y)
             setOffsetX(to: val.x)
             setOffsetY(to: val.y)
+            scrollDelegate?.scrollViewDidScroll(currentOffsetX: offset.x, currentOffsetY: offset.y)
         }
     }
     private func setOffsetX(to val: CGFloat) {

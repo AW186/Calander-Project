@@ -10,9 +10,15 @@ import Foundation
 import Cocoa
 
 class EventTable: NSView {
+    var optionalSetupOffset: CGFloat? {
+        didSet {
+            tableView.optionalSetupOffset = self.optionalSetupOffset
+        }
+    }
     private var tableView: VerticleTableView = VerticleTableView()
     private var model: EventList = []
     var addNewCellBlk: () -> () = { }
+    var scrollBlk: (CGFloat) -> () = { _ in }
     var rowDidClickedReactionBlk: (Int) -> () = { _ in }
     init(frame frameRect: NSRect, model: EventList) {
         self.model = model
@@ -27,8 +33,10 @@ class EventTable: NSView {
     }
     private func setUp() {
         tableView.removeFromSuperview()
+        tableView.optionalSetupOffset = optionalSetupOffset
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.scrollDelegate = self
         tableView.frame = self.bounds
         self.addSubview(tableView)
     }
@@ -44,6 +52,9 @@ class EventTable: NSView {
     }
     func insertCellAt(row: Int, cell: Event) {
         tableView.insertCellAt(index: row, cell: EventCell.init(model: cell))
+    }
+    func getOffset() -> CGFloat {
+        return tableView.offset.y
     }
 }
 
@@ -93,5 +104,13 @@ extension EventTable: VerticleTableViewDelegate {
     func cellDidInsert(at row: Int) {
         
     }
-    
+}
+
+extension EventTable: ScrollViewDelegate {
+    func scrollViewDidScroll(currentOffsetX: CGFloat, currentOffsetY: CGFloat) {
+        scrollBlk(currentOffsetY)
+    }
+    func setOffset(_ offset: CGFloat) {
+        tableView.offset.y = offset
+    }
 }
