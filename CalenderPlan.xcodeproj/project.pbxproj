@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92020116225CE7A30057FA92 /* VarificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92020115225CE7A30057FA92 /* VarificationView.swift */; };
 		92081BBA2189407F0015940C /* EventTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92081BB92189407F0015940C /* EventTableDelegate.swift */; };
 		9244022A2187252500770AE0 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924402292187252400770AE0 /* NSDateExtension.swift */; };
 		9244B19D219B01B90063A4A7 /* RingSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9244B19C219B01B90063A4A7 /* RingSlider.swift */; };
@@ -87,6 +88,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		92020115225CE7A30057FA92 /* VarificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VarificationView.swift; sourceTree = "<group>"; };
 		92081BB92189407F0015940C /* EventTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableDelegate.swift; sourceTree = "<group>"; };
 		924402292187252400770AE0 /* NSDateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		9244B19C219B01B90063A4A7 /* RingSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingSlider.swift; sourceTree = "<group>"; };
@@ -181,6 +183,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		92020114225CE75E0057FA92 /* VarificationView */ = {
+			isa = PBXGroup;
+			children = (
+				92020115225CE7A30057FA92 /* VarificationView.swift */,
+			);
+			path = VarificationView;
+			sourceTree = "<group>";
+		};
 		924402282187251100770AE0 /* Date */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,6 +308,7 @@
 				92EAAD7921745CA40085D1E9 /* ViewController.swift */,
 				92EAADB5217607010085D1E9 /* ColorBoard.swift */,
 				929F580B219A6CDB00F4344E /* Words.swift */,
+				92020114225CE75E0057FA92 /* VarificationView */,
 				92813D0121828753002988BD /* RingView */,
 				92813CF8217EEC2B002988BD /* VerticleTableView */,
 				92EAADDF217AE4D80085D1E9 /* EventList */,
@@ -572,6 +583,7 @@
 				92EAADB6217607010085D1E9 /* ColorBoard.swift in Sources */,
 				92FA8E7521DE001C0026ED1D /* AWAngle.swift in Sources */,
 				92813D0321828763002988BD /* RingView.swift in Sources */,
+				92020116225CE7A30057FA92 /* VarificationView.swift in Sources */,
 				9244B1E521ACDFE70063A4A7 /* Circle.swift in Sources */,
 				92813D00217F45A2002988BD /* VerticleTableViewCell.swift in Sources */,
 				92EAAD7A21745CA40085D1E9 /* ViewController.swift in Sources */,
@@ -713,7 +725,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -767,7 +779,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;

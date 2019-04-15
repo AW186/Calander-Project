@@ -11,6 +11,8 @@ import Cocoa
 class ViewController: NSViewController {
     
     private var timer = Timer()
+    private var vview = VarificationView()
+    private var didVarified = false
     
     private lazy var leftDateCheckingView: LeftDateCheckingView = {
         let view = LeftDateCheckingView.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 450, height: self.view.bounds.height)))
@@ -37,20 +39,46 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 //        generateFile()
         getModel()
+        if varify() {
+           setup()
+        } else {
+            vview = VarificationView.init(frame: self.view.bounds)
+            vview.completeBlock = { [unowned self] (arg) in
+                self.setup()
+                self.generateUserInfoFile(str: arg)
+                self.vview.removeFromSuperview()
+            }
+            self.view.addSubview(vview)
+        }
+//        self.view.addSubview(testRingSlider)
+    }
+    
+    private func setup() {
+        didVarified = true
+        getModel()
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = ColorBoard.yuebai
         self.view.addSubview(bookView)
         self.view.addSubview(leftDateCheckingView)
         
-        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { [unowned self] (_) in
-            self.leftDateCheckingView.refresh()
-            self.bookView.refresh()
-        })
-//        self.view.addSubview(testRingSlider)
+        if #available(OSX 10.12, *) {
+            timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { [unowned self] (_) in
+                self.leftDateCheckingView.refresh()
+                self.bookView.refresh()
+            })
+        } else {
+            timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refreshFunc), userInfo: nil, repeats: true)
+            // Fallback on earlier versions
+        }
+    }
+    
+    @objc private func refreshFunc() {
+        self.leftDateCheckingView.refresh()
+        self.bookView.refresh()
     }
     
     private func getModel() {
-        let filePath: String = NSHomeDirectory() + "/Documents/data.plist"
+        let filePath: String = NSHomeDirectory() + "/Documents/datap.plist"
         print(filePath)
         let fm = FileManager.default
         guard fm.fileExists(atPath: filePath) else {
@@ -72,12 +100,48 @@ class ViewController: NSViewController {
         }
         window.isMovableByWindowBackground = false
     }
+    private func varify() -> Bool {
+        let uid = getuid()
+        var characters = [Int]()
+        var index = UInt32(uid)
+        var count = 0
+        while(index != 0) {
+            characters.append(Int((Int(index)+count)%10))
+            index /= 10
+            count += 1
+        }
+        count = 0
+        var retval = true
+        let filePath = NSHomeDirectory() + "/Documents/info.file"
+        guard let stringVal = try? String.init(contentsOfFile: filePath) else {
+            return false
+        }
+        guard stringVal.count == characters.count else {
+            return false
+        }
+        let varifyCode: [Character] = ["^", "#", "?", ">", "@", "!", "&", "%", "*", "$"]
+        stringVal.forEach { (arg) in
+            if arg != varifyCode[(characters[count])%10] {
+                retval = false
+            }
+            count += 1
+        }
+        return retval
+    }
+    private func generateUserInfoFile(str: String) {
+        let filePath = NSHomeDirectory() + "/Documents/info.file"
+        do {
+            try str.write(toFile: filePath, atomically: true, encoding: String.Encoding.utf16)
+        } catch {
+            print("error occured when writting data to info.file")
+        }
+    }
     func generateFile() {
         let dueDate: TimeInterval! = NSDate.dateFrom(year: 2018, month: 12, day: 1)?.timeIntervalSince1970
         let fromDate1: TimeInterval! = NSDate.dateFrom(year: 2018, month: 5, day: 9)?.timeIntervalSince1970
         let fromDate2: TimeInterval! = NSDate.dateFrom(year: 2018, month: 10, day: 10)?.timeIntervalSince1970
         let array = [[Event(dueDate: dueDate, fromDate: fromDate1, name: "事件1")], [Event(dueDate: dueDate, fromDate: fromDate2, name: "Event1")]]
-        let filePath: String = NSHomeDirectory() + "/Documents/data.plist"
+        let filePath: String = NSHomeDirectory() + "/Documents/datap.plist"
         let newArr = array.map { (arr) -> [Dictionary<String, String>] in
             return arr.map({ (arg) -> Dictionary<String, String> in
                 return arg.toDict()
@@ -95,11 +159,15 @@ class ViewController: NSViewController {
 
     override func viewDidLayout() {
         super.viewDidLayout()
-        leftDateCheckingView.frame = CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 450, height: self.view.bounds.height))
-        var rect = self.view.bounds
-        rect.origin.x = leftDateCheckingView.frame.width
-        rect.size.width -= leftDateCheckingView.frame.width
-        bookView.frame = rect
+        if(didVarified) {
+            leftDateCheckingView.frame = CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 450, height: self.view.bounds.height))
+            var rect = self.view.bounds
+            rect.origin.x = leftDateCheckingView.frame.width
+            rect.size.width -= leftDateCheckingView.frame.width
+            bookView.frame = rect
+        } else {
+            vview.frame = self.view.bounds
+        }
     }
 }
 

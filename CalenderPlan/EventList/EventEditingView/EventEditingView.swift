@@ -59,8 +59,8 @@ extension EventEditingView {
         self.layer?.backgroundColor = ColorBoard.yuebai
         setUpNameTextField()
         setUpRingSlider()
-        setUpDueDateTextField()
         setUpFromDateTextField()
+        setUpDueDateTextField()
         setUpDiscriptionTextField()
         setUpCompleteRateTextField()
         setUpEditBtn()
@@ -71,14 +71,14 @@ extension EventEditingView {
         super.layout()
         layoutNameTextField()
         layoutRingSlider()
-        layoutDueDateTextField()
         layoutFromDateTextField()
+        layoutDueDateTextField()
         layoutDiscriptionTextField()
         layoutCompleteRateTextField()
         layoutEditBtn()
         layoutEditIconBtn()
-        layoutDueDatePicker()
         layoutFromDatePicker()
+        layoutDueDatePicker()
         layoutDeleteBtn()
     }
     private func setUpDeleteBtn() {
@@ -119,7 +119,7 @@ extension EventEditingView {
     }
     private func layoutEditBtn() {
         editBtn.sizeToFit()
-        editBtn.frame.origin = dueDateTextField.frame.leftTopCorner.verticalShift(5)
+        editBtn.frame.origin = fromDateTextField.frame.leftTopCorner.verticalShift(5)
     }
     private func setUpRingSlider() {
         layoutRingSlider()
@@ -138,7 +138,7 @@ extension EventEditingView {
     private func setUpNameTextField() {
         nameTextField.stringValue = event.name.count > 0 ? event.name : "未名"
         nameTextField.font = NSFont.systemFont(ofSize: 30)
-        nameTextField.maximumNumberOfChar = 10
+        nameTextField.maximumNumberOfChar = 20
         nameTextField.textDidChangeBlk = { [unowned self] _ in
             self.layoutNameTextField()
         }
@@ -174,7 +174,7 @@ extension EventEditingView {
     }
     private func layoutDueDateTextField() {
         dueDateTextField.sizeToFit()
-        dueDateTextField.frame.origin = ringSlider.frame.origin.verticalShift(20)
+        dueDateTextField.frame.leftTopCorner = fromDateTextField.frame.leftBottomCorner.verticalShift(-10)
         
         dueDateContentTF.sizeToFit()
         dueDateContentTF.frame.origin = dueDateTextField.frame.rightBottomCorner.horizantalShift(5)
@@ -199,8 +199,7 @@ extension EventEditingView {
     }
     private func layoutFromDateTextField() {
         fromDateTextField.sizeToFit()
-        fromDateTextField.frame.leftTopCorner = dueDateTextField.frame.origin.verticalShift(-10)
-        
+        fromDateTextField.frame.leftTopCorner = ringSlider.frame.origin.verticalShift(20)
         fromDateContentTF.sizeToFit()
         fromDateContentTF.frame.origin = fromDateTextField.frame.rightBottomCorner.horizantalShift(5)
     }
@@ -216,7 +215,9 @@ extension EventEditingView {
         discriptionContentTF.placeholderString = "暂无"
         discriptionContentTF.maximumNumberOfChar = 140
         discriptionContentTF.font = NSFont.systemFont(ofSize: 15)
-        discriptionContentTF.maximumNumberOfLines = 999
+        if #available(OSX 10.11, *) {
+            discriptionContentTF.maximumNumberOfLines = 999
+        }
         discriptionContentTF.isEditable = false
         discriptionContentTF.isBordered = false
         discriptionContentTF.textColor = NSColor(cgColor: ColorBoard.textColor1)
@@ -226,7 +227,7 @@ extension EventEditingView {
     private func layoutDiscriptionTextField() {
         
         discriptionTextField.sizeToFit()
-        discriptionTextField.frame.leftTopCorner = fromDateTextField.frame.origin.verticalShift(-10)
+        discriptionTextField.frame.leftTopCorner = dueDateTextField.frame.origin.verticalShift(-10)
         
         discriptionContentTF.frame.size.width = ringSlider.frame.size.width
         discriptionContentTF.frame.size.height = 100

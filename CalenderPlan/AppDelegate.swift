@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AppDelegate.saveModel()
     }
     public static func saveModel() {
-        let filePath: String = NSHomeDirectory() + "/Documents/data.plist"
+        let filePath: String = NSHomeDirectory() + "/Documents/datap.plist"
         print(model[0].data)
         let newArr = AppDelegate.model.map { (arr) -> [Dictionary<String, String>] in
             return arr.data.map({ (arg) -> Dictionary<String, String> in

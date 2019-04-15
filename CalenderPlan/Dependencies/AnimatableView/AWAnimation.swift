@@ -19,30 +19,62 @@ class AWAnimation {
     init(duration: TimeInterval, actionBlk: @escaping (CGFloat) -> Void) {
         self.duration = duration
         self.startTime = NSDate()
-        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: { [unowned self] (_) -> () in
-            let currentTime = NSDate()
-            let rate = (currentTime.timeIntervalSince1970-self.startTime.timeIntervalSince1970)/duration
-            actionBlk(CGFloat(rate < 1 ? rate : 1))
-            if self.currentTime >= self.duration {
-                self.timer.invalidate()
-            }
-            self.currentTime += self.interval
-        })
+        self.actionBlk = actionBlk
+        if #available(OSX 10.12, *) {
+            timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: { [unowned self] (_) -> () in
+                let currentTime = NSDate()
+                let rate = (currentTime.timeIntervalSince1970-self.startTime.timeIntervalSince1970)/duration
+                actionBlk(CGFloat(rate < 1 ? rate : 1))
+                if self.currentTime >= self.duration {
+                    self.timer.invalidate()
+                }
+                self.currentTime += self.interval
+            })
+        } else {
+            // Fallback on earlier versions
+            timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(action1), userInfo: nil, repeats: true)
+        }
     }
+    @objc private func action1() {
+        let currentTime = NSDate()
+        let rate = (currentTime.timeIntervalSince1970-self.startTime.timeIntervalSince1970)/duration
+        actionBlk(CGFloat(rate < 1 ? rate : 1))
+        if self.currentTime >= self.duration {
+            self.timer.invalidate()
+        }
+        self.currentTime += self.interval
+    }
+    private var actionBlk: (CGFloat) -> Void = { _ in }
     init(duration: TimeInterval, actionBlk: @escaping (CGFloat) -> Void, completeBlk: @escaping (Bool) -> Void) {
         self.duration = duration
         self.completeBlk = completeBlk
+        self.actionBlk = actionBlk
         self.startTime = NSDate()
-        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: { [unowned self] (_) -> () in
-            let currentTime = NSDate()
-            let rate = (currentTime.timeIntervalSince1970-self.startTime.timeIntervalSince1970)/duration
-            actionBlk(CGFloat(rate < 1 ? rate : 1))
-            if self.currentTime >= self.duration {
-                self.timer.invalidate()
-                completeBlk(true)
-            }
-            self.currentTime += self.interval
-        })
+        if #available(OSX 10.12, *) {
+            timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: { [unowned self] (_) -> () in
+                let currentTime = NSDate()
+                let rate = (currentTime.timeIntervalSince1970-self.startTime.timeIntervalSince1970)/duration
+                actionBlk(CGFloat(rate < 1 ? rate : 1))
+                if self.currentTime >= self.duration {
+                    self.timer.invalidate()
+                    completeBlk(true)
+                }
+                self.currentTime += self.interval
+            })
+        } else {
+            timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(action2), userInfo: nil, repeats: true)
+            // Fallback on earlier versions
+        }
+    }
+    @objc func action2() {
+        let currentTime = NSDate()
+        let rate = (currentTime.timeIntervalSince1970-self.startTime.timeIntervalSince1970)/duration
+        actionBlk(CGFloat(rate < 1 ? rate : 1))
+        if self.currentTime >= self.duration {
+            self.timer.invalidate()
+            completeBlk?(true)
+        }
+        self.currentTime += self.interval
     }
     func stopAnimate() {
         if let blk = completeBlk {
