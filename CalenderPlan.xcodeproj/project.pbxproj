@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		92020116225CE7A30057FA92 /* VarificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92020115225CE7A30057FA92 /* VarificationView.swift */; };
 		92081BBA2189407F0015940C /* EventTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92081BB92189407F0015940C /* EventTableDelegate.swift */; };
+		9234984122645D7A00A84374 /* AWNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234983A22645D7900A84374 /* AWNavigationView.swift */; };
+		9234984222645D7A00A84374 /* AWTimeLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234983B22645D7900A84374 /* AWTimeLine.swift */; };
+		9234984322645D7A00A84374 /* AWTargetingTimeZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234983C22645D7900A84374 /* AWTargetingTimeZone.swift */; };
+		9234984422645D7A00A84374 /* AWMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234983D22645D7900A84374 /* AWMonthView.swift */; };
+		9234984522645D7A00A84374 /* AWYearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234983E22645D7900A84374 /* AWYearView.swift */; };
+		9234984622645D7A00A84374 /* AWDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234983F22645D7900A84374 /* AWDayView.swift */; };
+		9234984722645D7A00A84374 /* CalenderSystemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234984022645D7900A84374 /* CalenderSystemDelegate.swift */; };
 		9244022A2187252500770AE0 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924402292187252400770AE0 /* NSDateExtension.swift */; };
 		9244B19D219B01B90063A4A7 /* RingSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9244B19C219B01B90063A4A7 /* RingSlider.swift */; };
 		9244B19F219E50A90063A4A7 /* CGFloat+Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9244B19E219E50A90063A4A7 /* CGFloat+Angle.swift */; };
@@ -90,6 +97,13 @@
 /* Begin PBXFileReference section */
 		92020115225CE7A30057FA92 /* VarificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VarificationView.swift; sourceTree = "<group>"; };
 		92081BB92189407F0015940C /* EventTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableDelegate.swift; sourceTree = "<group>"; };
+		9234983A22645D7900A84374 /* AWNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWNavigationView.swift; sourceTree = "<group>"; };
+		9234983B22645D7900A84374 /* AWTimeLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWTimeLine.swift; sourceTree = "<group>"; };
+		9234983C22645D7900A84374 /* AWTargetingTimeZone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWTargetingTimeZone.swift; sourceTree = "<group>"; };
+		9234983D22645D7900A84374 /* AWMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWMonthView.swift; sourceTree = "<group>"; };
+		9234983E22645D7900A84374 /* AWYearView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWYearView.swift; sourceTree = "<group>"; };
+		9234983F22645D7900A84374 /* AWDayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWDayView.swift; sourceTree = "<group>"; };
+		9234984022645D7900A84374 /* CalenderSystemDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderSystemDelegate.swift; sourceTree = "<group>"; };
 		924402292187252400770AE0 /* NSDateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		9244B19C219B01B90063A4A7 /* RingSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingSlider.swift; sourceTree = "<group>"; };
 		9244B19E219E50A90063A4A7 /* CGFloat+Angle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Angle.swift"; sourceTree = "<group>"; };
@@ -189,6 +203,36 @@
 				92020115225CE7A30057FA92 /* VarificationView.swift */,
 			);
 			path = VarificationView;
+			sourceTree = "<group>";
+		};
+		9234983822645D7900A84374 /* Calender */ = {
+			isa = PBXGroup;
+			children = (
+				9234983922645D7900A84374 /* CalenderView */,
+				9234984022645D7900A84374 /* CalenderSystemDelegate.swift */,
+			);
+			path = Calender;
+			sourceTree = "<group>";
+		};
+		9234983922645D7900A84374 /* CalenderView */ = {
+			isa = PBXGroup;
+			children = (
+				923498482266EE6400A84374 /* New Group */,
+				9234983A22645D7900A84374 /* AWNavigationView.swift */,
+				9234983B22645D7900A84374 /* AWTimeLine.swift */,
+				9234983C22645D7900A84374 /* AWTargetingTimeZone.swift */,
+				9234983D22645D7900A84374 /* AWMonthView.swift */,
+				9234983E22645D7900A84374 /* AWYearView.swift */,
+				9234983F22645D7900A84374 /* AWDayView.swift */,
+			);
+			path = CalenderView;
+			sourceTree = "<group>";
+		};
+		923498482266EE6400A84374 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		924402282187251100770AE0 /* Date */ = {
@@ -308,6 +352,7 @@
 				92EAAD7921745CA40085D1E9 /* ViewController.swift */,
 				92EAADB5217607010085D1E9 /* ColorBoard.swift */,
 				929F580B219A6CDB00F4344E /* Words.swift */,
+				9234983822645D7900A84374 /* Calender */,
 				92020114225CE75E0057FA92 /* VarificationView */,
 				92813D0121828753002988BD /* RingView */,
 				92813CF8217EEC2B002988BD /* VerticleTableView */,
@@ -576,7 +621,9 @@
 				92EAADDC217AB5DB0085D1E9 /* EventsListView.swift in Sources */,
 				92BB9593222F8DAD00B92324 /* ChineseSeason.swift in Sources */,
 				92EAADD8217A0D270085D1E9 /* IntExtension.swift in Sources */,
+				9234984522645D7A00A84374 /* AWYearView.swift in Sources */,
 				92BB952821F5987B00B92324 /* AddCell.swift in Sources */,
+				9234984122645D7A00A84374 /* AWNavigationView.swift in Sources */,
 				92EAADC021773EBA0085D1E9 /* VerticleRectLabel.swift in Sources */,
 				9244B1A121A196AD0063A4A7 /* CapareExtension.swift in Sources */,
 				92EAADC921788C400085D1E9 /* BookView.swift in Sources */,
@@ -592,6 +639,7 @@
 				92813D0521829034002988BD /* NSBezierExtension.swift in Sources */,
 				92813CFE217EEDAD002988BD /* VerticleTableDelegate.swift in Sources */,
 				92EAADAF21745CCC0085D1E9 /* CGSizeExtension.swift in Sources */,
+				9234984422645D7A00A84374 /* AWMonthView.swift in Sources */,
 				92EAADE1217AE7760085D1E9 /* EventCell.swift in Sources */,
 				92EAADC5217800F10085D1E9 /* LeftDateCheckingView.swift in Sources */,
 				9244B19D219B01B90063A4A7 /* RingSlider.swift in Sources */,
@@ -620,12 +668,16 @@
 				92FA8E7721E774640026ED1D /* LimitedLengthTF.swift in Sources */,
 				92EAADB421745DE20085D1E9 /* DateView.swift in Sources */,
 				92813CFC217EED8E002988BD /* VerticleTableViewDataSource.swift in Sources */,
+				9234984622645D7A00A84374 /* AWDayView.swift in Sources */,
 				92EAADAE21745CCC0085D1E9 /* RoundRectLabel.swift in Sources */,
+				9234984322645D7A00A84374 /* AWTargetingTimeZone.swift in Sources */,
+				9234984222645D7A00A84374 /* AWTimeLine.swift in Sources */,
 				92BB952521EE10BD00B92324 /* EditIconBtn.swift in Sources */,
 				92BB9591222F790F00B92324 /* ScrollViewDelegate.swift in Sources */,
 				92EAADDE217AE4B40085D1E9 /* ButtonView.swift in Sources */,
 				92EAADBE2176ADED0085D1E9 /* Holiday.swift in Sources */,
 				92BB952C21F98E4F00B92324 /* EventModel.swift in Sources */,
+				9234984722645D7A00A84374 /* CalenderSystemDelegate.swift in Sources */,
 				92EAADD6217A071D0085D1E9 /* LabelButton.swift in Sources */,
 				92EAADB021745CCC0085D1E9 /* CGPointExtension.swift in Sources */,
 			);

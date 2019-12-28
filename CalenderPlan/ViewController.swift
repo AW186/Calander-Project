@@ -11,8 +11,6 @@ import Cocoa
 class ViewController: NSViewController {
     
     private var timer = Timer()
-    private var vview = VarificationView()
-    private var didVarified = false
     
     private lazy var leftDateCheckingView: LeftDateCheckingView = {
         let view = LeftDateCheckingView.init(frame: CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 450, height: self.view.bounds.height)))
@@ -37,24 +35,11 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        generateFile()
         getModel()
-        if varify() {
-           setup()
-        } else {
-            vview = VarificationView.init(frame: self.view.bounds)
-            vview.completeBlock = { [unowned self] (arg) in
-                self.setup()
-                self.generateUserInfoFile(str: arg)
-                self.vview.removeFromSuperview()
-            }
-            self.view.addSubview(vview)
-        }
-//        self.view.addSubview(testRingSlider)
+        setup()
     }
     
     private func setup() {
-        didVarified = true
         getModel()
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = ColorBoard.yuebai
@@ -68,7 +53,6 @@ class ViewController: NSViewController {
             })
         } else {
             timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(refreshFunc), userInfo: nil, repeats: true)
-            // Fallback on earlier versions
         }
     }
     
@@ -100,42 +84,6 @@ class ViewController: NSViewController {
         }
         window.isMovableByWindowBackground = false
     }
-    private func varify() -> Bool {
-        let uid = getuid()
-        var characters = [Int]()
-        var index = UInt32(uid)
-        var count = 0
-        while(index != 0) {
-            characters.append(Int((Int(index)+count)%10))
-            index /= 10
-            count += 1
-        }
-        count = 0
-        var retval = true
-        let filePath = NSHomeDirectory() + "/Documents/info.file"
-        guard let stringVal = try? String.init(contentsOfFile: filePath) else {
-            return false
-        }
-        guard stringVal.count == characters.count else {
-            return false
-        }
-        let varifyCode: [Character] = ["^", "#", "?", ">", "@", "!", "&", "%", "*", "$"]
-        stringVal.forEach { (arg) in
-            if arg != varifyCode[(characters[count])%10] {
-                retval = false
-            }
-            count += 1
-        }
-        return retval
-    }
-    private func generateUserInfoFile(str: String) {
-        let filePath = NSHomeDirectory() + "/Documents/info.file"
-        do {
-            try str.write(toFile: filePath, atomically: true, encoding: String.Encoding.utf16)
-        } catch {
-            print("error occured when writting data to info.file")
-        }
-    }
     func generateFile() {
         let dueDate: TimeInterval! = NSDate.dateFrom(year: 2018, month: 12, day: 1)?.timeIntervalSince1970
         let fromDate1: TimeInterval! = NSDate.dateFrom(year: 2018, month: 5, day: 9)?.timeIntervalSince1970
@@ -148,8 +96,6 @@ class ViewController: NSViewController {
             })
         }
         (newArr as NSArray).write(toFile: filePath, atomically: true)
-        let arr = NSArray.init(contentsOfFile: filePath)
-        print(arr)
     }
     override var representedObject: Any? {
         didSet {
@@ -159,15 +105,12 @@ class ViewController: NSViewController {
 
     override func viewDidLayout() {
         super.viewDidLayout()
-        if(didVarified) {
-            leftDateCheckingView.frame = CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 450, height: self.view.bounds.height))
-            var rect = self.view.bounds
-            rect.origin.x = leftDateCheckingView.frame.width
-            rect.size.width -= leftDateCheckingView.frame.width
-            bookView.frame = rect
-        } else {
-            vview.frame = self.view.bounds
-        }
+        
+        leftDateCheckingView.frame = CGRect.init(origin: CGPoint.zero, size: CGSize.init(width: 450, height: self.view.bounds.height))
+        var rect = self.view.bounds
+        rect.origin.x = leftDateCheckingView.frame.width
+        rect.size.width -= leftDateCheckingView.frame.width
+        bookView.frame = rect
     }
 }
 

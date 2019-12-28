@@ -36,4 +36,43 @@ extension NSDate {
         lunar.insert(contentsOf: "   ", at: lunar.index(lunar.startIndex, offsetBy: lunar.count-3))
         return lunar
     }
+    func getYear() -> String {
+        let format = DateFormatter()
+        format.dateFormat = "yyyy"
+        return format.string(from: self as Date)
+    }
+    func getMonth() -> String {
+        let format = DateFormatter()
+        format.dateFormat = "MM"
+        return format.string(from: self as Date)
+    }
+    func getDay() -> String {
+        let format = DateFormatter()
+        format.dateFormat = "dd"
+        return format.string(from: self as Date)
+    }
+    func yearVal() -> Int {
+        return Int(getYear())!
+    }
+    func monthVal() -> Int {
+        return Int(getMonth())!
+    }
+    func dayVal() -> Int {
+        return Int(getDay())!
+    }
+    func getWeekDay() -> Int {
+        guard var y = Int(getYear()) else {
+            return -1
+        }
+        let c = y/100
+        guard var m = Int(getMonth()) else {
+            return -1
+        }
+        y = y%100
+        (y, m) = m < 3 ? (y-1, m+12) : (y, m)
+        guard let d = Int(getDay()) else {
+            return -1
+        }
+        return y+(y/4)+(c/4)-2*c+(26*(m+1)/10)+d-1-1
+    }
 }
